@@ -13,5 +13,7 @@ public class ClientGraphe {
         Graphe graphe1 = new Graphe(tab);
         System.out.println(graphe1.toString());
 
+        System.out.println("Parcours en largeur : " + graphe1.parcourEnLargeur(0));
+
     }
 }

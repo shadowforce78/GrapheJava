@@ -1,6 +1,7 @@
 package org.example;
 
 import java.util.*;
+import org.javatuples.*;
 
 public class Graphe {
     private TreeMap<Integer, Set<Integer>> adjacence; // Map des sommets et de leurs voisins
@@ -88,4 +89,35 @@ public class Graphe {
         }
         return taille / 2; // Retourne la taille du graphe (nombre d'arêtes)
     }
+
+    // Parcour en Largeur (Prend un le sommet de départ, et renvoie un dictionnaire
+    // des prédecesseurs)
+    // Clé = sommet, valeur = SommetPrécédent dans le plus court chemin, Distance la
+    // plus courte pour atteindre le sommet clé
+
+    public Map<Integer, Pair<Integer, Integer>> parcourEnLargeur(int sommetDepart) {
+        Map<Integer, Pair<Integer, Integer>> predecesseurs = new HashMap<>();
+        Queue<Integer> queue = new LinkedList<>();
+        Set<Integer> visites = new HashSet<>();
+
+        queue.add(sommetDepart);
+        visites.add(sommetDepart);
+        predecesseurs.put(sommetDepart, new Pair<>(-1, 0)); // Utiliser -1 au lieu de null pour le sommet de départ
+
+        while (!queue.isEmpty()) {
+            int sommet = queue.poll();
+            int distanceActuelle = predecesseurs.get(sommet).getValue1(); // Utiliser getValue1 pour la distance
+
+            for (int voisin : adjacence.get(sommet)) {
+                if (!visites.contains(voisin)) {
+                    queue.add(voisin);
+                    visites.add(voisin);
+                    predecesseurs.put(voisin, new Pair<>(sommet, distanceActuelle + 1));
+                }
+            }
+        }
+
+        return predecesseurs;
+    }
+
 }
