@@ -130,4 +130,27 @@ public class Graphe {
         return predecesseurs;
     }
 
+    public List<Integer> plusCourtChemin(int depart, int arrivee) {
+        // Obtenir la map des prédécesseurs via le parcours en largeur
+        Map<Integer, Pair<Integer, Integer>> predecesseurs = parcourEnLargeur(depart);
+
+        // Vérifier si le sommet d'arrivée est atteignable
+        if (!predecesseurs.containsKey(arrivee)) {
+            return new ArrayList<>(); // Retourne une liste vide si pas de chemin
+        }
+
+        // Reconstruire le chemin en remontant les prédécesseurs
+        List<Integer> chemin = new ArrayList<>();
+        int sommetCourant = arrivee;
+
+        while (sommetCourant != -1) { // -1 est le marqueur pour le sommet de départ
+            chemin.add(sommetCourant);
+            sommetCourant = predecesseurs.get(sommetCourant).getValue0();
+        }
+
+        // Inverser le chemin pour l'avoir dans l'ordre départ -> arrivée
+        Collections.reverse(chemin);
+        return chemin;
+    }
+
 }
