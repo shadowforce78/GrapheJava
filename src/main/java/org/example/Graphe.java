@@ -105,11 +105,6 @@ public class Graphe {
         return taille / 2; // Retourne la taille du graphe (nombre d'arêtes)
     }
 
-    // Parcour en Largeur (Prend un le sommet de départ, et renvoie un dictionnaire
-    // des prédecesseurs)
-    // Clé = sommet, valeur = SommetPrécédent dans le plus court chemin, Distance la
-    // plus courte pour atteindre le sommet clé
-
     public Map<Integer, Pair<Integer, Integer>> parcourEnLargeur(int sommetDepart) {
         Map<Integer, Pair<Integer, Integer>> predecesseurs = new HashMap<>();
         Queue<Integer> queue = new LinkedList<>();
