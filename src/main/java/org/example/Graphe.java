@@ -32,7 +32,8 @@ public class Graphe {
         sb.append("ordre : ").append(getOrderGraphe()).append("\n");
         sb.append("taille : ").append(getTaille()).append("\n");
         sb.append("degré min : ").append(getDegreMin()).append("\n");
-        sb.append("degré max : ").append(getDegreMax()).append("\n");
+        sb.append("degré max : ").append(getDegreMax()).append("\n\n");
+
         for (Integer sommet : adjacence.keySet()) {
             sb.append("sommet ").append(sommet)
                     .append(" (degré : ").append(getDegreSommet(sommet)).append(") ")
@@ -41,6 +42,20 @@ public class Graphe {
             sb.append(String.join(", ", voisins.stream().map(String::valueOf).toList()));
             sb.append("\n");
         }
+
+        // Ajout du parcours en largeur
+        sb.append("\nParcours en largeur depuis le sommet 0:\n");
+        Map<Integer, Pair<Integer, Integer>> parcours = parcourEnLargeur(0);
+        for (Map.Entry<Integer, Pair<Integer, Integer>> entry : parcours.entrySet()) {
+            int sommet = entry.getKey();
+            int predecesseur = entry.getValue().getValue0();
+            int distance = entry.getValue().getValue1();
+            sb.append("sommet ").append(sommet)
+                    .append(" : prédécesseur=").append(predecesseur == -1 ? "aucun" : predecesseur)
+                    .append(", distance=").append(distance)
+                    .append("\n");
+        }
+
         return sb.toString();
     }
 
